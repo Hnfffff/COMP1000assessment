@@ -68,13 +68,14 @@ class Player extends Object{
     
   }
   
-  
-  
 }
 
 
 
 boolean AABB(hitbox a, hitbox b)
 {
- return a.xpos - a.hwidth/2 < b.xpos + b.hwidth/2 && a.xpos + a.hwidth/2 > b.xpos - b.hwidth/2 && a.ypos - a.hheight/2 < b.ypos + b.hheight/2 && a.ypos + a.hheight/2 > b.ypos - b.hheight/2;
+ return a.xpos - a.hwidth/2 < b.xpos + b.hwidth/2 &&
+ a.xpos + a.hwidth/2 > b.xpos - b.hwidth/2 &&
+ a.ypos - a.hheight/2 < b.ypos + b.hheight/2 &&
+ a.ypos + a.hheight/2 > b.ypos - b.hheight/2;
 }
