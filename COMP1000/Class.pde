@@ -27,7 +27,52 @@ class Object{
     ypos = y;
     h = new hitbox(x, y, _width, _height);
   }
+  
+  float GetX()
+  {
+   return xpos; 
+  }
+  
+  float GetY()
+  {
+   return ypos; 
+  }
+  
+  void ChangeX(float value)
+  {
+   xpos += value; 
+  }
+  
+  void ChangeY(float value)
+  {
+   ypos += value; 
+  }
+  
+  void SetX(float value)
+  {
+    xpos = value;
+  }
+  
+  void SetY(float value)
+  {
+   ypos = value; 
+  }
+  
 }
+
+
+class Player extends Object{
+  Player(float x, float y, float wwidth, float hheight)
+  {
+   super(x, y, wwidth, hheight); 
+    
+  }
+  
+  
+  
+}
+
+
 
 boolean AABB(hitbox a, hitbox b)
 {
