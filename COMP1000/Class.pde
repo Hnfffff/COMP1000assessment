@@ -126,6 +126,16 @@ class Player extends Object{
    //draw the face
    fill(255);
    ellipse(xpos - wwidth/6, ypos - hheight/10, wwidth/4, hheight/4);
+   ellipse(xpos + wwidth/6, ypos - hheight/10, wwidth/4, hheight/4);
+   
+   fill(0);
+   ellipse(xpos - wwidth/6, ypos - hheight/10, wwidth/8, hheight/8);
+   ellipse(xpos + wwidth/6, ypos - hheight/10, wwidth/8, hheight/8);
+   
+   fill(255);
+   arc(xpos, ypos + hheight/10, wwidth/1.5, hheight/1.5, 0, PI, CHORD);
+   arc(xpos, ypos + hheight/10, wwidth/1.5, hheight/4, 0, PI, CHORD);
+   
   }
   
 }
