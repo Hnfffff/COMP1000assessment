@@ -135,12 +135,21 @@ class Player extends Object{
    fill(255);
    arc(xpos, ypos + hheight/10, wwidth/1.5, hheight/1.5, 0, PI, CHORD);
    arc(xpos, ypos + hheight/10, wwidth/1.5, hheight/4, 0, PI, CHORD);
-   
+  }
+}
+
+class Enemy extends Object{
+  Enemy(float x, float y, float _width, float _height)
+  {
+    super(x, y, _width, _height);
+  }
+  
+  void render(color Colour1, color Colour2)
+  {
+    
   }
   
 }
-
-
 
 boolean AABB(hitbox a, hitbox b)
 {
