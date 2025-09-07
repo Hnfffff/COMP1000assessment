@@ -1,26 +1,27 @@
-class hitbox{
- float xpos, ypos, hwidth, hheight; 
+class HitBox{
+ private float xPos, yPos, hWidth, hHeight; 
   
-  hitbox(float x, float y, float _width, float _height)
+  HitBox(float x, float y, float _width, float _height)
   {
-    xpos = x;
-    ypos = y;
-    hwidth = _width;
-    hheight = _height;
+    xPos = x;
+    yPos = y;
+    hWidth = _width;
+    hHeight = _height;
   }
   
   void Draw()
   {
+   rectMode(CENTER);
    fill(0, 255, 0, 50);
-   rect(xpos, ypos, hwidth, hheight); 
+   rect(xPos, yPos, hWidth, hHeight); 
   }
   
 }
 
-class graphicblob{
- float xpos, ypos, wwidth, hheight;
+class GraphicBlob{
+ private float xpos, ypos, wwidth, hheight;
  
- graphicblob(float x, float y, float _width, float _height)
+ GraphicBlob(float x, float y, float _width, float _height)
  {
    xpos = x;
    ypos = y;
@@ -41,8 +42,8 @@ class graphicblob{
 
 class Object{
   float xpos, ypos, wwidth, hheight;
-  hitbox h;
-  graphicblob[] blobs = new graphicblob[3];
+  HitBox h;
+  GraphicBlob[] blobs = new GraphicBlob[3];
   
   
   Object(float x, float y, float _width, float _height)
@@ -51,11 +52,11 @@ class Object{
     ypos = y;
     wwidth = _width;
     hheight = _height;
-    h = new hitbox(x, y, _width, _height);
+    h = new HitBox(x, y, _width, _height);
     
     for(int i = 0; i < blobs.length; i++)
     {
-      blobs[i] = new graphicblob(x, y, _width/5, _height/5);
+      blobs[i] = new GraphicBlob(x, y, _width/5, _height/5);
     }
   }
   
@@ -113,6 +114,8 @@ class Object{
 }
 
 class Player extends Object{
+  boolean[] Inputs = new boolean[4];
+  
   Player(float x, float y, float _width, float _height)
   {
    super(x, y, _width, _height); 
@@ -136,6 +139,11 @@ class Player extends Object{
    arc(xpos, ypos + hheight/10, wwidth/1.5, hheight/1.5, 0, PI, CHORD);
    arc(xpos, ypos + hheight/10, wwidth/1.5, hheight/4, 0, PI, CHORD);
   }
+  
+  void setValue(boolean b, int index)
+  {
+    Inputs[index] = b;
+  }
 }
 
 class Enemy extends Object{
@@ -146,12 +154,49 @@ class Enemy extends Object{
   
   void render(color Colour1, color Colour2)
   {
-    
+     super.render(Colour1, Colour2); 
+   
+     //draw face
+     fill(255);
+     arc(xpos - wwidth/4, ypos - hheight/8, wwidth/3, hheight/3, 0, PI + QUARTER_PI, CHORD);
+     arc(xpos + wwidth/4, ypos - hheight/8, wwidth/3, hheight/3, -QUARTER_PI, PI, CHORD);
+   
+     fill(0);
+     arc(xpos - wwidth/4, ypos - hheight/8, wwidth/5, hheight/5, 0, PI + QUARTER_PI, CHORD);
+     arc(xpos + wwidth/4, ypos - hheight/8, wwidth/5, hheight/5, -QUARTER_PI, PI, CHORD);
+   
+     fill(255);
+     arc(xpos, ypos + hheight/3, wwidth/1.5, hheight/1.5, -PI, 0, CHORD);
+     line(xpos + (wwidth/1.5)/2.5, ypos + (hheight/3)/2, xpos - (wwidth/1.5)/2.5, ypos + (hheight/3)/2);
   }
   
 }
 
-boolean AABB(hitbox a, hitbox b)
+class Pickup extends Object{
+  float points;
+   Pickup(float x, float y, float _width, float _height, float p)
+  {
+    super(x, y, _width, _height);
+    
+    points = p;
+  }
+  
+  void render(color Colour1, color Colour2)
+  {
+     super.render(Colour1, Colour2); 
+   
+     //draw face
+     fill(255);
+     line(xpos + wwidth/5 * 2, ypos + hheight/20 - hheight/10, xpos + wwidth/10, ypos - hheight/10);
+     line(xpos - wwidth/5 * 2, ypos + hheight/20 - hheight/10, xpos - wwidth/10, ypos - hheight/10);
+   
+     fill(255);
+     arc(xpos, ypos + hheight/6, wwidth/1.5, hheight/3, 0, PI, CHORD);
+  }
+  
+}
+
+boolean AABB(HitBox a, HitBox b)
 {
- return a.xpos - a.hwidth/2 < b.xpos + b.hwidth/2 && a.xpos + a.hwidth/2 > b.xpos - b.hwidth/2 && a.ypos - a.hheight/2 < b.ypos + b.hheight/2 && a.ypos + a.hheight/2 > b.ypos - b.hheight/2;
+ return a.xPos - a.hWidth/2 < b.xPos + b.hWidth/2 && a.xPos + a.hWidth/2 > b.xPos - b.hWidth/2 && a.yPos - a.hHeight/2 < b.yPos + b.hHeight/2 && a.yPos + a.hHeight/2 > b.yPos - b.hHeight/2;
 }
