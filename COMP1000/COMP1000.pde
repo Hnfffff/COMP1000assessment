@@ -1,20 +1,40 @@
-Player MainChar = new Player(50,50,50,50);
+Player MainChar = new Player(50,50,0,0);
 ArrayList<Pickup> Pickups = new ArrayList<Pickup>();
+ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
+int score = 0;
+boolean Debug = false;
+int timer = 60;
+
+enum State {START, GAME, END};
+State GameState = State.START;
 
 void setup()
 {
   frameRate(60);
   strokeWeight(2);
-  size(500,500);
-  MainChar.Innit(width/10, height/10);
+  size(700,500);
+  MainChar.Innit(height/10, height/10, width/2, height/2);
 }
 
 
 void draw()
 {
-  background(255);
-  renderObjects(MainChar, Pickups);
-  AddPickups(Pickups);
+  if(GameState == State.START)
+  {
+    DrawMainMenu();
+  }
+  
+  else if(GameState == State.GAME)
+  {
+    background(255);
+    CollisionCheck(MainChar, Pickups, Enemies);
+    renderObjects(MainChar, Pickups, Enemies);
+    AddPickups(Pickups);
+    AddEnemies(Enemies);
+    HandleEnemMovement(Enemies);
+  }
+  
+
 }
 
 void keyPressed()
@@ -41,7 +61,15 @@ void keyPressed()
    {
     MainChar.setValue(true, 1);
    }
+   
+
  }
+ 
+   if(key == 'p')
+   {
+    Debug = !Debug;
+    println(Debug);
+   }
 }
 
 void keyReleased()
@@ -68,5 +96,18 @@ void keyReleased()
    {
     MainChar.setValue(false, 1); 
    }
+ }
+}
+
+void mousePressed()
+{
+  println(MainChar.lastSteppedFrame);
+  println(frameCount);
+ if(MainChar.stepped == false || frameCount - MainChar.lastSteppedFrame >= 600)
+ {
+   MainChar.stepped = true;
+   MainChar.SetX(mouseX);
+   MainChar.SetY(mouseY);
+   MainChar.lastSteppedFrame = frameCount;
  }
 }
