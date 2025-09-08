@@ -1,14 +1,20 @@
-Player MainChar = new Player(10,10,50,50);
+Player MainChar = new Player(50,50,50,50);
+ArrayList<Pickup> Pickups = new ArrayList<Pickup>();
 
 void setup()
 {
-  size(100,100);
+  frameRate(60);
+  strokeWeight(2);
+  size(500,500);
+  MainChar.Innit(width/10, height/10);
 }
 
 
 void draw()
 {
-  MainChar.render(color(255,0,0), color(0,255,0));
+  background(255);
+  renderObjects(MainChar, Pickups);
+  AddPickups(Pickups);
 }
 
 void keyPressed()
@@ -63,10 +69,4 @@ void keyReleased()
     MainChar.setValue(false, 1); 
    }
  }
-}
-
-void renderObjects()
-{
-  
-  
 }
