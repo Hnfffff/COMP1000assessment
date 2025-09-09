@@ -422,7 +422,6 @@ boolean AABB(HitBox a, HitBox b)
  return a.xPos - a.hWidth/2 < b.xPos + b.hWidth/2 && a.xPos + a.hWidth/2 > b.xPos - b.hWidth/2 && a.yPos - a.hHeight/2 < b.yPos + b.hHeight/2 && a.yPos + a.hHeight/2 > b.yPos - b.hHeight/2;
 }
 
-
 //add enemies
 void AddEnemies(ArrayList<Enemy> arrl)
 {
@@ -512,5 +511,18 @@ void EndScreen()
  text("Final Score: " + score, width/15, 0 + height/10 * 2);
 
  text("SPACE TO RESTART", width/4, 0 + height/10 * 7);
+  
+}
+
+void innitbg(int[][] arr)
+{
+ for(int i = 0; i < arr.length; i++)
+ {
+  for(int j = 0; j < arr[i].length; j++)
+  {
+   arr[i][j] = random(0, height);
+  }
+ }
+  
   
 }

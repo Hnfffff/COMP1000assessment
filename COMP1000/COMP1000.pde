@@ -1,6 +1,20 @@
+/*
+  
+  
+  
+  
+  
+  
+  
+*/
+//player instance
 Player MainChar = new Player(50,50,0,0);
+//arraylist for pickups and enemies
 ArrayList<Pickup> Pickups = new ArrayList<Pickup>();
 ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
+float[][] BackgroundSpheresPos = new float[2][10];
+
+
 int score = 0;
 boolean Debug = false;
 int timer = 60;
@@ -13,7 +27,7 @@ void setup()
   //setup, innit function to set it at the new width and height
   frameRate(60);
   strokeWeight(2);
-  size(700,500);
+  size(700,200);
   MainChar.Innit(height/10, height/10, width/2, height/2);
 }
 
@@ -73,7 +87,6 @@ void keyPressed()
    if(key == 'p')
    {
     Debug = !Debug;
-    println(Debug);
    }
    
    //check space if on main meny
