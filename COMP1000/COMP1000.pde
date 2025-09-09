@@ -10,6 +10,7 @@ State GameState = State.START;
 
 void setup()
 {
+  //setup, innit function to set it at the new width and height
   frameRate(60);
   strokeWeight(2);
   size(700,500);
@@ -19,6 +20,7 @@ void setup()
 
 void draw()
 {
+  //check what state and draw certain things based on it
   if(GameState == State.START)
   {
     DrawMainMenu();
@@ -32,14 +34,19 @@ void draw()
     AddPickups(Pickups);
     AddEnemies(Enemies);
     HandleEnemMovement(Enemies);
+    TimeHandle();
   }
-  
-
+  else if(GameState == State.END)
+  {
+    EndScreen();
+    
+  }
 }
 
 void keyPressed()
 {
   //this is from the references in the documentation im doing it cos i assume its best practice
+  //arrowkeys
  if(key == CODED)
  {
    if(keyCode == UP)
@@ -61,20 +68,39 @@ void keyPressed()
    {
     MainChar.setValue(true, 1);
    }
-   
-
  }
- 
+ //show debug hitboxes
    if(key == 'p')
    {
     Debug = !Debug;
     println(Debug);
    }
+   
+   //check space if on main meny
+   if(GameState == State.START && key == ' ')
+   {
+     GameState = State.GAME;
+     MainChar.stepped = false;
+   }
+   
+   //check space on endscreen
+   if(GameState == State.END && key == ' ')
+   {
+     
+    //reset the game
+    GameState = State.GAME;
+    MainChar.Innit(height/10, height/10, width/2, height/2);
+    timer = 60;
+    score = 0;
+    Pickups.clear();
+    Enemies.clear();
+    MainChar.stepped = false;
+   }
 }
 
 void keyReleased()
 {
-  //this is from the references in the documentation im doing it cos i assume its best practice
+  //remove from move array
  if(key == CODED)
  {
    if(keyCode == UP)
@@ -101,10 +127,10 @@ void keyReleased()
 
 void mousePressed()
 {
-  println(MainChar.lastSteppedFrame);
-  println(frameCount);
+  //check if it has been more than 10 seconds
  if(MainChar.stepped == false || frameCount - MainChar.lastSteppedFrame >= 600)
  {
+   //teleport player
    MainChar.stepped = true;
    MainChar.SetX(mouseX);
    MainChar.SetY(mouseY);
